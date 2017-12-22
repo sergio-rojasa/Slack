@@ -10,10 +10,10 @@
   <header>
     <div id="logo">Slack</div>
     <div id="sign-in-form">
-      <form method="post">
-        <input class="sign-in" placeholder="Email">
-        <input class="sign-in" placeholder="Password">
-        <button id="sign-in-btn">Sign in</button>
+      <form action="/login" method="post">
+        <input class="sign-in" type="text"  name="username" placeholder="Email">
+        <input class="sign-in" type="password" name="password" placeholder="Password">
+        <input type="submit" id="sign-in-btn" value="Sign in">
       </form>
     </div>
   </header>

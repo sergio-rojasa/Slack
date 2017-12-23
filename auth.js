@@ -27,14 +27,14 @@ module.exports = function(app, db) {
   })
 
   passport.use(new LocalStrategy(
-    function(useremail, password, done) {
-      db.collection('emails').findOne({ useremail: useremail }, function (err, email) {
-        console.log('Email ' + useremail + ' attempted to log in.')
-        if (err) { return done(err) }
-        if (!email) { return done(null, false) }
-        if (password !== user.password) { return done(null, false) }
-        return done(null, email)
-      })
-    }
-  ))
+      function(email, password, done) {
+        db.collection('emails').findOne({ email: email }, function (err, email) {
+          console.log('Email ' + email + ' attempted to log in.')
+          if (err) { return done(err) }
+          if (!email) { return done(null, false) }
+          if (password !== email.password) { return done(null, false) }
+          return done(null, email)
+        })
+      }
+    ))
 }

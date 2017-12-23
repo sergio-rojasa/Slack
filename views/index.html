@@ -20,11 +20,11 @@
   <main>
     <div id="sign-up-form">
       <h1 id="splash">Talk with friends on Slack</h1>
-      <form id="sign-up-f" method="post">
-        <input class="sign-up" id="username" type="text" required  placeholder="Username"><br>
-        <input class="sign-up" id="sign-up-email" type="text" required placeholder="Email"> <br>
-        <input class="sign-up" required type="password" placeholder="Password"><br>
-        <button id="register-btn">Create Account</button>
+      <form action="/register" id="sign-up-f" method="post">
+          <input class="sign-up" name="username" id="username" type="text" required  placeholder="Username"><br>
+          <input class="sign-up" name="email" id="sign-up-email" type="text" required placeholder="Email"> <br>
+          <input class="sign-up" name="password" required type="password" placeholder="Password"><br>
+          <button id="register-btn">Create Account</button>
       </form>
     </div>
   </main>

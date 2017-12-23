@@ -24,6 +24,41 @@ module.exports = function(app, db) {
       req.redirect('/')
     })
 
+    app.route('/register')
+        .post((req, res, next) => {
+          db.collection('emails').findOne({ email: req.body.email }, function(err, email) {
+            if(err) {
+              next(err)
+            }
+            else if(email) {
+              res.redirect('/')
+            }
+            else {
+              db.collection('emails').insertOne(
+                {
+                  username: req.body.username,
+                  email: req.body.email,
+                  password: req.body.password
+                },
+                (err, doc) => {
+                  if(err) {
+                    res.redirect('/')
+                  }
+                  else {
+                    next(null, email)
+                  }
+                }
+              )
+            }
+        })
+      },
+        passport.authenticate('local', { failureRedirect: '/' }),
+        (req, res, next) => {
+            res.redirect('/profile');
+        }
+
+      )
+
   app.use((req, res, next) => {
     res.status(404)
     .type('text')

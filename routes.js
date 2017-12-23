@@ -16,4 +16,11 @@ module.exports = function(app, db) {
     .get(ensureAuthenticated, (req, res) => {
       res.sendFile(__dirname + '/views/profile.html')
     })
+  
+  function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+      return next();
+  }
+  res.redirect('/');
+ };
 }

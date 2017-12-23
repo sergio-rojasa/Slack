@@ -13,7 +13,14 @@ module.exports = function(app, db) {
         res.redirect("/profile");
     });
   app.route('/profile')
-    .get(function(req, res) {
+    .get(ensureAuthenticated, (req, res) => {
       res.sendFile(__dirname + '/views/profile.html')
     })
+  
+  function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+      return next();
+  }
+  res.redirect('/');
+ };
 }

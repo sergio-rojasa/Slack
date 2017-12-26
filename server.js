@@ -23,7 +23,7 @@ mongo.connect(process.env.DATABASE, (err, db) => {
   }
   else {
     auth(app, db)
-    routes(app)
+    routes(app, db)
     console.log('Successful database connection.')
   }
 })

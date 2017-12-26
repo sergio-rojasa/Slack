@@ -2,6 +2,7 @@ const session = require('express-session')
 const passport = require('passport')
 const ObjectID = require('mongodb').ObjectID
 const LocalStrategy = require('passport-local')
+const bcrypt = require('bcrypt')
 
 module.exports = function(app, db) {
   app.use(session({
@@ -32,7 +33,7 @@ module.exports = function(app, db) {
           console.log('Email ' + email + ' attempted to log in.')
           if (err) { return done(err) }
           if (!email) { return done(null, false) }
-          if (password !== email.password) { return done(null, false) }
+          if (!bcrypt.compare(password, email.password)) { return done(null, false) }
           return done(null, email)
         })
       }

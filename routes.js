@@ -1,4 +1,5 @@
 const passport = require('passport')
+const bcrypt = require('bcrypt')
 
 module.exports = function(app, db) {
   app.route('/')
@@ -21,11 +22,13 @@ module.exports = function(app, db) {
   app.route('/logout')
     .get((req, res) => {
       req.logout()
-      req.redirect('/')
+      res.redirect('/')
     })
 
     app.route('/register')
         .post((req, res, next) => {
+          var hash = bcrypt.hash(req.body.password, 12)
+
           db.collection('emails').findOne({ email: req.body.email }, function(err, email) {
             if(err) {
               next(err)
@@ -38,7 +41,7 @@ module.exports = function(app, db) {
                 {
                   username: req.body.username,
                   email: req.body.email,
-                  password: req.body.password
+                  password: hash
                 },
                 (err, doc) => {
                   if(err) {

@@ -4,11 +4,13 @@ const session    = require("express-session");
 const mongo      = require("mongodb").MongoClient;
 const routes     = require("./routes.js");
 const auth       = require("./auth.js");
+const app = express()
+
+const http       = require("http").Server(app)
 
 require("dotenv/config");
 
 
-const app = express()
 const port = process.env.PORT || 3000
 
 app.use(express.static(__dirname + '/public'))
@@ -25,9 +27,6 @@ mongo.connect(process.env.DATABASE, (err, db) => {
     auth(app, db)
     routes(app, db)
     console.log('Successful database connection.')
+    http.listen(process.env.PORT || 3000);
   }
-})
-
-app.listen(port, function() {
-  console.log('Node is listening on http://localhost:' + port)
 })

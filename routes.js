@@ -11,14 +11,18 @@ module.exports = function(app, db) {
     .post(passport.authenticate("local", {
       failureRedirect: "/"
       }), function(req, res) {
-        res.redirect("/profile");
+        res.redirect("/board");
     });
+
+  app.route('/board')
+    .get(ensureAuthenticated, (req, res) => {
+      res.sendFile(__dirname + '/views/board.html')
+    })
 
   app.route('/profile')
     .get(ensureAuthenticated, (req, res) => {
       res.sendFile(__dirname + '/views/profile.html')
     })
-
   app.route('/logout')
     .get((req, res) => {
       req.logout()
@@ -57,7 +61,7 @@ module.exports = function(app, db) {
       },
         passport.authenticate('local', { failureRedirect: '/' }),
         (req, res, next) => {
-            res.redirect('/profile');
+            res.redirect('/board');
         }
 
       )

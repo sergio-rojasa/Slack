@@ -1,0 +1,31 @@
+*{
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  font-family: sans-serif;
+  color: #5b5b5b;
+}
+
+header {
+  width: 100%;
+  background-color: #fdfdfd;
+  border-bottom: 1px solid #d8d8d8;
+}
+a {
+  text-decoration: none;
+}
+#logo {
+  color: #ff6e00;
+  font-size: 3.25em;
+  font-weight: bold;
+  display: inline-block;
+  margin-left: 2%;
+  margin-top: 1%;
+}
+
+#right-options {
+  display: inline;
+  float: right;
+  margin-right: 2%;
+  margin-top: 1%;
+}

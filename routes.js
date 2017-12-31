@@ -19,6 +19,44 @@ module.exports = function(app, db) {
       res.sendFile(__dirname + '/views/board.html')
     })
 
+    app.route('/room/new')
+      .get(ensureAuthenticated, (req, res) => {
+        res.sendFile(__dirname + '/views/newRoom.html')
+      })
+      .post(ensureAuthenticated, (req, res, next) => {
+        var hash = bcrypt.hashSync(req.body.password, 8);
+
+        db.collection('rooms').findOne({ roomName: req.body.roomName }, function(err, room) {
+          if(err) {
+            next(err);
+          }
+          else if(room) {
+            res.redirect('/board');
+          }
+          else {
+            db.collection('rooms').insertOne(
+              {
+                roomName: req.body.roomName,
+                password: hash,
+                roomDescription: req.body.roomDescription
+              },
+              (err, doc) => {
+                if(err) {
+                  res.redirect('/board')
+                }
+                else {
+                  next(null, room)
+                }
+              }
+            )
+          }
+        })
+      },
+           (req, res, next) => {
+          res.redirect('/board');
+         }
+      )
+
   app.route('/profile')
     .get(ensureAuthenticated, (req, res) => {
       res.sendFile(__dirname + '/views/profile.html')

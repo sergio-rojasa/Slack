@@ -30,9 +30,40 @@ a {
   margin-right: 2%;
   margin-top: 1%;
 }
+
 #right-options a div{
-  display: inline-block;
+  display: inline;
 }
+
 #logout {
   float: right;
+}
+
+#board {
+  padding: 3%;
+}
+
+.room {
+  width: 200px;
+  height: 200px;
+  background-color: #fafafa;
+  display: inline-block;
+  margin-right: 1%;
+  margin-top: 1%;
+  margin-bottom: 1%;
+}
+
+.room-info {
+}
+
+.room-name {
+ font-size: 1.25em;
+ font-weight: bold;
+ margin-bottom: 1%;
+}
+
+.room-description {
+ font-size: 1em;
+ font-weight: 100;
+ color: #969696;
 }
